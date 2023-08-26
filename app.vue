@@ -1,5 +1,9 @@
 <template>
   <div class="p-10 h-[100vh] bg-teal-600 overflow-auto">
-    <TrelloBoard/>
+    <h1 class="text-4xl text-white mb-4">
+      Drag Drop Board
+    </h1>
+
+    <TrelloBoard />
   </div>
 </template>
