@@ -54,9 +54,11 @@ const columns = ref<Column[]>([
             :animation="150"
           >
             <template #item="{element: task}: {element: Task}">
-              <TrelloBoardTask
-                :task="task"
-              />
+              <div>
+                <TrelloBoardTask
+                  :task="task"
+                />
+              </div>
             </template>
           </draggable>
 
