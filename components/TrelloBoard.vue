@@ -46,6 +46,14 @@ const columns = ref<Column[]>([
             {{ column.title }}
           </header>
 
+          <draggable
+            v-model="column.tasks"
+            group="tasks"
+            item-key="id"
+            class="flex gap-4 items-start"
+            :animation="150"
+            handle=".drag-handler"
+          />
           <TrelloBoardTask
             v-for="task in column.tasks"
             :key="task.id"
