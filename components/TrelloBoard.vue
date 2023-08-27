@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid'
 import { Column, Task } from '~/types'
 import DragHandle from '~/components/DragHandle.vue'
 
-const columns = ref<Column[]>([
+const columns = useLocalStorage<Column[]>('trelloBoard', [
   {
     id: nanoid(),
     title: 'Backlog',
