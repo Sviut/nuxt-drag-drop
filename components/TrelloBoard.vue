@@ -57,6 +57,7 @@ const columns = ref<Column[]>([
               <div>
                 <TrelloBoardTask
                   :task="task"
+                  @delete="column.tasks = column.tasks.filter(t => t.id !== $event)"
                 />
               </div>
             </template>
