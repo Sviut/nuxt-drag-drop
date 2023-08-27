@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import draggable from 'vuedraggable'
 import { nanoid } from 'nanoid'
-import { Column } from '~/types'
+import { Column, Task } from '~/types'
 import DragHandle from '~/components/DragHandle.vue'
 
 const columns = ref<Column[]>([
@@ -49,16 +49,16 @@ const columns = ref<Column[]>([
           <draggable
             v-model="column.tasks"
             group="tasks"
-            item-key="id"
-            class="flex gap-4 items-start"
-            :animation="150"
             handle=".drag-handler"
-          />
-          <TrelloBoardTask
-            v-for="task in column.tasks"
-            :key="task.id"
-            :task="task"
-          />
+            item-key="id"
+            :animation="150"
+          >
+            <template #item="{element: task}: {element: Task}">
+              <TrelloBoardTask
+                :task="task"
+              />
+            </template>
+          </draggable>
 
           <footer>
             <button class="text-gray-500">
