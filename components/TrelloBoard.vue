@@ -27,10 +27,26 @@ const columns = ref<Column[]>([
   { title: 'QA', id: nanoid(), tasks: [] },
   { title: 'Complete', id: nanoid(), tasks: [] }
 ])
+
+const createColumn = () => {
+  const column: Column = {
+    id: nanoid(),
+    title: '',
+    tasks: []
+  }
+
+  columns.value.push(column)
+
+  nextTick(() => {
+    const input = document.querySelector('.column:last-of-type .title-input') as HTMLInputElement
+    input.focus()
+  })
+}
+
 </script>
 
 <template>
-  <div>
+  <div class="flex items-start overflow-x-auto gap-4 ">
     <draggable
       v-model="columns"
       group="columns"
@@ -43,7 +59,13 @@ const columns = ref<Column[]>([
         <div class="column bg-gray-200 p-5 rounded min-w-[250px]">
           <header class="font-bold mb-4">
             <DragHandle />
-            {{ column.title }}
+            <input
+              v-model="column.title"
+              class="title-input bg-transparent focus:bg-white rounded px-1 w-4/5"
+              type="text"
+              @keyup.enter="($event.target as HTMLInputElement).blur()"
+              @keydown.delete="column.title === '' ? columns = columns.filter(c => c.id !== column.id) : null"
+            >
           </header>
 
           <draggable
@@ -69,5 +91,11 @@ const columns = ref<Column[]>([
         </div>
       </template>
     </draggable>
+    <button
+      class="bg-gray-200 whitespace-nowrap p-2 rounded opacity-50"
+      @click="createColumn"
+    >
+      + Add Another Column
+    </button>
   </div>
 </template>
